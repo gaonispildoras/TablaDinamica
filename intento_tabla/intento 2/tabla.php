@@ -65,13 +65,15 @@ $query=mysqli_query($conexion, $sql);
             <th>Id_Usuario</th>
         </tr>
 <?php
+$k=1;
 while($array=mysqli_fetch_array($query)){
 ?>
         <tr>
-            <td><p class="p_viaje"><?php echo $array["nombre_viaje"];?></p><input type="text" class="input_viaje" value="<?php echo $array["nombre_viaje"];?>"></td>                       
+            <td><p class="p_viaje"><?php echo $array["nombre_viaje"];?></p><input type="text" id="i_<?php $k;  ?>_1"  class="input_viaje" value="<?php echo $array["nombre_viaje"];?>"></td>                       
             <td><p><?php echo $array["id_usuario"];?></p></td>
         </tr>    
 <?php
+$k=$k+1;
 }
 ?>
         <tr>
