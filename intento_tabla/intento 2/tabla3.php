@@ -28,41 +28,38 @@ $query=mysqli_query($conexion, $sql);
             var target = $(event.target); 
             var id = target.attr("id"); 
             
-                if (!id){
-                    return;
-                    
-                }
-                else{ 
-                
+                if (id){
                     var id2 = id.split("_");
                     var id3 = id2[1];
     
                     var valor = target.val();
-                    var input = $(".input_viaje").val(); //TENGO QUE COGER EL INPUT DE I+NUMERO???
-
-                    console.log(id);
-                    console.log(valor);  
-                    console.log(input);   
-                    
-                                
-                if(!target.closest('.input' && ".input_viaje").length && $('.input' && ".input_viaje").is(":visible")) { // SI CLICO EN OTRO LADO, ESCONDE EL INPUT Y ENSEÑA EL P                           
-                    
-                    $(".input_viaje").hide(); 
-                                                
-                    $(".p_viaje").show(); 
-                    $("#p_"+id3).text(input);
-                                         
-                                                                     
-                }
-                else{ // SI CLICO DENTRO ENSEÑA EL INPUT Y ESCONDE EL P
+                    var input = $(".input_viaje").val(); //TENGO QUE COGER EL INPUT DE I+NUMERO???                    
 
                     $("#mostrar").hide();
                     $('.input').show();
                              
                     $(".p_viaje").hide(); 
                     $(".input_viaje").show();
-                                                                                                                                         
-                }   
+
+                    console.log(id);
+                    console.log(valor);  
+                    console.log(input); 
+                                                       
+                    
+                }
+                else{ 
+                    if(!target.closest('.input' && ".input_viaje").length && $('.input' && ".input_viaje").is(":visible")) { // SI CLICO EN OTRO LADO, ESCONDE EL INPUT Y ENSEÑA EL P   
+                                                 
+                        
+                        $(".input_viaje").hide(); 
+                                                    
+                        $(".p_viaje").show(); 
+                        $("#p_1").text(input);
+                                            
+                                                                        
+                    }
+                    
+     
                 }     
         });
     });
