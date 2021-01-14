@@ -29,20 +29,17 @@ $query=mysqli_query($conexion, $sql);
             var id = target.attr("id"); 
             
                 if (!id){
-                    return;
+                    
                     
                 }
                 else{ 
                 
                     var id2 = id.split("_");
                     var id3 = id2[1];
-    
-                    var valor = target.val();
-                    var input = $(".input_viaje").val(); //TENGO QUE COGER EL INPUT DE I+NUMERO???
+                
+                    var input = $("#i_"+id3).val(); //TENGO QUE COGER EL INPUT DE I+NUMERO???
 
-                    console.log(id);
-                    console.log(valor);  
-                    console.log(input);   
+   
                     
                                 
                 if(!target.closest('.input' && ".input_viaje").length && $('.input' && ".input_viaje").is(":visible")) { // SI CLICO EN OTRO LADO, ESCONDE EL INPUT Y ENSEÑA EL P                           
@@ -51,7 +48,8 @@ $query=mysqli_query($conexion, $sql);
                                                 
                     $(".p_viaje").show(); 
                     $("#p_"+id3).text(input);
-                                         
+                    console.log(id); 
+                    console.log(input);                  
                                                                      
                 }
                 else{ // SI CLICO DENTRO ENSEÑA EL INPUT Y ESCONDE EL P
