@@ -20,33 +20,32 @@ $query=mysqli_query($conexion, $sql);
 
 <script>
     $(function(){
-        $(".input_viaje").hide();   
-        $(".input").hide();
+        $(".input_viaje").hide();          
 
         // COMO AQUI TENGO PUESTO DOCUMENT CUALQUIER CLIC QUE HAGA EN TODO EL DOCUMENTO DESENCADENARA EL EVENTO. (HAY QUE CAMBIARLO)
-        $(document).click(function(event)  { 
+       $(document).click(function(event)  { 
             var target = $(event.target); 
             var id = target.attr("id"); 
 
                 if (id){
                     var id2 = id.split("_");
                     var id3 = id2[1];
-                    var input = $("#i_"+id3).val();         
+                    var input = $("#i_"+id3).val(); 
+                    var usuario = $("#u_"+id3).text();
 
                     $("#mostrar").hide();
-                    $('.input').show();
                              
                     $("#p_"+id3).hide(); 
                     $("#i_"+id3).show();
-
-                    console.log(id);  
-                    console.log(input); 
 
                     $("#i_"+id3).on("blur", function(){
                         $("#i_"+id3).hide(); 
                                                     
                         $("#p_"+id3).show(); 
                         $("#p_"+id3).text(input);
+
+                        var enlace="update.php?input="+input+"&usuario="+usuario+" ";
+                        $("#resultado").load(enlace);
                     });
                                                                          
                 }
@@ -71,9 +70,10 @@ $query=mysqli_query($conexion, $sql);
                                                                                                                    
                     }
                         
-                } */   
+                }  
+        });*/ 
         });
-    });
+    });      
 
 </script>
    
@@ -86,9 +86,10 @@ $query=mysqli_query($conexion, $sql);
 $k=1;
 while($array=mysqli_fetch_array($query)){
 ?>
+<div id="resultado"></div>
         <tr>
             <td><p class="p_viaje" id="p_<?php echo $k; ?>"><?php echo $array["nombre_viaje"];?></p><input type="text" id="i_<?php echo $k; ?>"  class="input_viaje" value="<?php echo $array["nombre_viaje"];?>"></td>                       
-            <td><p><?php echo $array["id_usuario"];?></p></td>
+            <td><p id="u_<?php echo $k; ?>" value="<?php echo $array["id_usuario"];?>"><?php echo $array["id_usuario"];?></p></td>
         </tr>    
 <?php
 $k=$k+1;
@@ -101,7 +102,10 @@ $k=$k+1;
         </tr>
 
         <tr>
-            <td></td>
+            <td><script>/*while($(".input").val().length<=0){
+                    
+                }*/
+            </script></td>
             <td></td>
         </tr>
 
