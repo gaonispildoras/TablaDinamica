@@ -27,16 +27,12 @@ $query=mysqli_query($conexion, $sql);
         $(document).click(function(event)  { 
             var target = $(event.target); 
             var id = target.attr("id"); 
-            var id2="";
-            var id3="";
-            var input="";
-            
+
                 if (id){
                     var id2 = id.split("_");
-                    var id3 = id2[1];
-
-                    var input = $("#i_"+id3).val();                    
-
+                    var id3 = id2[1];            
+                    var input = $("#i_"+id3).val();         
+        
                     $("#mostrar").hide();
                     $('.input').show();
                              
@@ -45,6 +41,13 @@ $query=mysqli_query($conexion, $sql);
 
                     console.log(id);  
                     console.log(input); 
+
+                    $("#i_"+id3).on("blur", function(){
+                        $("#i_"+id3).hide(); 
+                                                    
+                        $("#p_"+id3).show(); 
+                        $("#p_"+id3).text(input);
+                    });
                                                                          
                 }
                 
@@ -57,7 +60,7 @@ $query=mysqli_query($conexion, $sql);
                     console.log(input);
                 
                 }*/
-                else{ 
+                /*else{ 
                     if(!target.closest('.input' && ".input_viaje").length && $('.input' && ".input_viaje").is(":visible")) { // SI CLICO EN OTRO LADO, ESCONDE EL INPUT Y ENSEÑA EL P   
                                                                        
                         $(".input_viaje").hide(); 
@@ -68,7 +71,7 @@ $query=mysqli_query($conexion, $sql);
                                                                                                                    
                     }
                         
-                }    
+                } */   
         });
     });
 
