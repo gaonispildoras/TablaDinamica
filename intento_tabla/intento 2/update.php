@@ -1,10 +1,7 @@
 <?php 
 include("../conexion.php");
 
-$sql="UPDATE viajes SET nombre_viaje = '$_GET[input]' WHERE id_usuario = $_GET[usuario]";
+$sql="UPDATE prueba SET comida = '$_GET[input]' WHERE usuarios = '$_GET[usuario]'";
 $consulta=mysqli_query($conexion, $sql);
-
-
-
 
 ?>

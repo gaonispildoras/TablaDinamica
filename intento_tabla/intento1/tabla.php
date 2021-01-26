@@ -35,17 +35,17 @@ $query=mysqli_query($conexion, $sql);
             
             var $target = $(event.target);
 
-                if(!$target.closest('.input').length && $('.input').is(":visible")) {
-                        $('.input').hide();
+                if($target.closest('.input').length && $('.input').is(!":visible")) {
+                        $('.input').show();
                         var input1=$('.input').val();
-                        $("#mostrar").show();
+                        $("#mostrar").hide();
                         $("#mostrar").text(input1);
                         
                         
                 }
                 else{
-                    $('.input').show();
-                    $("#mostrar").hide();
+                    $('.input').hide();
+                    $("#mostrar").show();
                 }        
                 });
 

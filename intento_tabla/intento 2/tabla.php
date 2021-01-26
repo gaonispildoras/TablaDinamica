@@ -1,7 +1,7 @@
 <?php
 include("../conexion.php");
 
-$sql="SELECT nombre_viaje, id_usuario FROM viajes";
+$sql="SELECT comida, usuarios FROM prueba";
 $query=mysqli_query($conexion, $sql);
 ?>
 
@@ -11,6 +11,7 @@ $query=mysqli_query($conexion, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -33,16 +34,19 @@ $query=mysqli_query($conexion, $sql);
                     var input = $("#i_"+id3).val(); 
                     var usuario = $("#u_"+id3).text();
 
-                    $("#mostrar").hide();
+                    console.log(id3);
+                    console.log(input);
+                    console.log(usuario);
                              
                     $("#p_"+id3).hide(); 
                     $("#i_"+id3).show();
 
                     $("#i_"+id3).on("blur", function(){
                         $("#i_"+id3).hide(); 
-                                                    
-                        $("#p_"+id3).show(); 
+                                        
                         $("#p_"+id3).text(input);
+                        $("#p_"+id3).show(); 
+                        
 
                         var enlace="update.php?input="+input+"&usuario="+usuario+" ";
                         $("#resultado").load(enlace);
@@ -50,67 +54,62 @@ $query=mysqli_query($conexion, $sql);
                                                                          
                 }
                 
-                /*else if(!target.closest('.input' && ".input_viaje").length && $('.input' && ".input_viaje").is(":visible")) {
-                    $(".input_viaje").hide(); 
-                                                    
-                    $(".p_viaje").show(); 
-                    $("#p_"+id3).text(input);
-
-                    console.log(input);
-                
-                }*/
-                /*else{ 
-                    if(!target.closest('.input' && ".input_viaje").length && $('.input' && ".input_viaje").is(":visible")) { // SI CLICO EN OTRO LADO, ESCONDE EL INPUT Y ENSEÑA EL P   
-                                                                       
-                        $(".input_viaje").hide(); 
-                                                    
-                        $(".p_viaje").show(); 
-                        $("#p_"+id3).text(input);
-                        
-                                                                                                                   
-                    }
-                        
-                }  
-        });*/ 
         });
-    });      
+        var i = 0;
+        $("#añadir").click(function(){
+            i++;
+            var prueba1 = '<tr>'+ '<td><p id="p_nuevo'+i+'"></p> <input id="input_nuevo'+i+'" type="text"></td>' + '<td></td>' + '<tr>';
+            $("#p_nuevo").hide();
+            $("table").append(prueba1);
+
+        });
+        $(document).click(function(){
+            var i_nuevo = $("#input_nuevo"+i).val();
+        
+            $("#input_nuevo"+i).on("change", function(){
+                $("#p_nuevo"+i).text(i_nuevo);
+                $("#input_nuevo"+i).hide();
+                $("#p_nuevo"+i).show();
+                var usuario2="pablo";
+                var enlace="insert.php?input_nuevo="+i_nuevo+"&usuario_nuevo="+usuario2+" ";
+                $("#resultado").load(enlace);
+
+            });    
+                
+        });
+
+
+
+        
+    }); 
+
 
 </script>
    
-    <table class="table table-hover">
+    <table class="table table-hover" id="">
         <tr>
-            <th>Nombre del Viaje</th>
-            <th>Id_Usuario</th>
+            <th>Comida</th>
+            <th>Usuario</th>
         </tr>
 <?php
 $k=1;
 while($array=mysqli_fetch_array($query)){
 ?>
 <div id="resultado"></div>
+    
         <tr>
-            <td><p class="p_viaje" id="p_<?php echo $k; ?>"><?php echo $array["nombre_viaje"];?></p><input type="text" id="i_<?php echo $k; ?>"  class="input_viaje" value="<?php echo $array["nombre_viaje"];?>"></td>                       
-            <td><p id="u_<?php echo $k; ?>" value="<?php echo $array["id_usuario"];?>"><?php echo $array["id_usuario"];?></p></td>
+            <td><p class="p_viaje" id="p_<?php echo $k; ?>"><?php echo $array["comida"];?></p><input type="text" id="i_<?php echo $k; ?>"  class="input_viaje" value="<?php echo $array["comida"];?>"></td>                       
+            <td><p id="u_<?php echo $k; ?>" value="<?php echo $array["usuarios"];?>"><?php echo $array["usuarios"];?></p></td>
         </tr>    
 <?php
 $k=$k+1;
 }
 ?>
-        <tr>
-            <td class="" height="35"><p id="mostrar"></p><input class="input" type="text"></td>    
-            <td class="" height="35"></td>
-        
-        </tr>
-
-        <tr>
-            <td><script>/*while($(".input").val().length<=0){
-                    
-                }*/
-            </script></td>
-            <td></td>
-        </tr>
-
+    
     </table>
+    
 
+    <button class="btn btn-primary" id="añadir">Añadir</button>
 
 </body>
 </html>
